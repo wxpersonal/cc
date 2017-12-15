@@ -25,7 +25,6 @@ public class ApplicationContextListener implements ApplicationListener<ContextRe
        // root application context
        if(null == contextRefreshedEvent.getApplicationContext().getParent()) {
            log.debug(">>>>> spring初始化完毕 <<<<<");
-           System.setProperty("dubbo.application.logger","slf4j");
            SpringContextUtil.setApplicationContext(contextRefreshedEvent.getApplicationContext());
            // spring初始化完毕后，通过反射调用所有使用@Service注解的initMapper方法
            Map<String, Object> services = contextRefreshedEvent.getApplicationContext().getBeansWithAnnotation(org.springframework.stereotype.Service.class);

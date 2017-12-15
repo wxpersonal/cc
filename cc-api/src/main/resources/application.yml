@@ -31,7 +31,6 @@ dubbo:
     name: ccProvider
     logger: slf4j
   register:
-    protocol: zookeeper
     address: zookeeper://127.0.0.1:2181
   protocol:
     name: dubbo
@@ -41,6 +40,7 @@ dubbo:
     timeout: 3000
     retries: 1
     delay: 1
+
 # MyBatis
 mybatis:
   typeAliasesPackage: me.weix.cc.pojo

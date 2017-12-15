@@ -63,7 +63,7 @@ public class MyBatisConfig {
         // 下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
         sqlSessionFactoryBean.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));// 指定基包
         sqlSessionFactoryBean.setMapperLocations(
-                new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapperLocations")));//
+                new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapperLocations")));
         return sqlSessionFactoryBean.getObject();
     }
 

@@ -19,7 +19,7 @@ public class DataSourceConfig implements EnvironmentAware {
 
     private RelaxedPropertyResolver propertyResolver;
 
-    private static Logger log = LoggerFactory.getLogger(DataSourceConfig.class);
+    private static Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
 
     @Override
     public void setEnvironment(Environment env) {
@@ -30,8 +30,9 @@ public class DataSourceConfig implements EnvironmentAware {
     @Primary
     public DataSource masterDataSource() {
 
-        log.debug("----------------masterDataSource init------------------");
+        logger.debug("----------------masterDataSource init------------------");
         DruidDataSource datasource = new DruidDataSource();
+
         datasource.setUrl(propertyResolver.getProperty("master.url"));
         datasource.setDriverClassName(propertyResolver.getProperty("master.driverClassName"));
         datasource.setUsername(propertyResolver.getProperty("master.username"));
@@ -42,7 +43,7 @@ public class DataSourceConfig implements EnvironmentAware {
     @Bean(name = "slaveDataSource1", destroyMethod = "close", initMethod = "init")
     public DataSource slaveDataSource1() {
 
-        log.debug("----------------slaveDataSource1 init------------------");
+        logger.debug("----------------slaveDataSource1 init------------------");
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(propertyResolver.getProperty("slave1.url"));
         datasource.setDriverClassName(propertyResolver.getProperty("slave1.driverClassName"));
@@ -54,7 +55,7 @@ public class DataSourceConfig implements EnvironmentAware {
     @Bean(name = "slaveDataSource2", destroyMethod = "close", initMethod = "init")
     public DataSource slaveDataSource2() {
 
-        log.debug("----------------slaveDataSource2 init------------------");
+        logger.debug("----------------slaveDataSource2 init------------------");
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(propertyResolver.getProperty("slave2.url"));
         datasource.setDriverClassName(propertyResolver.getProperty("slave2.driverClassName"));
@@ -62,5 +63,7 @@ public class DataSourceConfig implements EnvironmentAware {
         datasource.setPassword(propertyResolver.getProperty("slave2.password"));
         return datasource;
     }
+
+
 
 }
