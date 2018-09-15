@@ -1,81 +1,30 @@
-spring:
-  profiles: default
-
 server:
   port: 8888
 
-jdbc:
-  readSize: 2
-  type: com.alibaba.druid.pool.DruidDataSource
-  master:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cc?setUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true
-    databaseId: mysql
-    username: root
-    password: xiang123
-  slave1:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cc?setUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true
-    databaseId: mysql
-    username: root
-    password: xiang123
-  slave2:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cc?setUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true
-    databaseId: mysql
-    username: root
-    password: xiang123
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://127.0.0.1:3306/cc
+        username: root
+        password: root
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
 
-dubbo:
-  application:
-    name: ccProvider
-    logger: slf4j
-  register:
-    address: zookeeper://127.0.0.1:2181
-  protocol:
-    name: dubbo
-    port: 20880
-  scan: me.weix.cc.service
-  provider:
-    timeout: 3000
-    retries: 1
-    delay: 1
-
-# MyBatis
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:
-  typeAliasesPackage: me.weix.cc.pojo
-  mapperLocations: classpath:/mybatis/mapper/**/*.xml
-# configLocation: classpath:/mybatis-config.xml
-
-redis:
-  host: 127.0.0.1
-  password:
-  port: 6379
-  pool:
-    max-idle: 8
-    min-idle: 0
-    max-active: 8
-    max-wait: -1
-
-#swagger
-swagger:
-  version: 0.0.1
-  host:
-  basePath: /cc/rest
-  description: Logic Solutions System Server.
-  title: System Server
-  licence:
-  licenceUrl:
-  contact:
-  termsOfServiceUrl:
-  resourcePackage: me.weix.cc
-file:
-  #/usr/share/nginx/html/uploads
-  #D://uploads
-  path:
-    dipositPath: dipositPdf
-    contract_path: contract_pdf
-    local: /usr/share/nginx/html/uploads
-    #如果是本地必须配置本地ip不能使用localhost，他人访问会导致图片查询地址不对从而显示不出。
-    remote: http://192.168.42.77:8080/image
-
+  mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.winter.model  # 注意：对应实体类的路径

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * T:mapper
- * V:pojo
+ * V:entity
  */
 public abstract class BaseServiceImpl<T, V> implements IBaseService<V> {
 
